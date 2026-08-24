@@ -1,0 +1,31 @@
+name: import repository
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bootstrap/chunk-* > /tmp/mero-precision-source.b64
+          base64 --decode /tmp/mero-precision-source.b64 > /tmp/mero-precision-source.tar.gz
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          tar -xzf /tmp/mero-precision-source.tar.gz --strip-components=1 -C .
+      - name: Commit complete repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat: initialize Mero Precision"
+          git push origin HEAD:main
