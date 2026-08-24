@@ -1,0 +1,11 @@
+{
+  "conversationId": "fixture-antigravity-session",
+  "workspacePaths": ["/tmp/example"],
+  "transcriptPath": "",
+  "executionNum": 1,
+  "terminationReason": "model_stop",
+  "error": "",
+  "fullyIdle": true,
+  "prompt": "Fix the authentication function in the repository and update the tests.",
+  "lastAssistantMessage": "Implemented the fix."
+}

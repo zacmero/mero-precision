@@ -1,0 +1,17 @@
+{
+  "description": "Mero Precision selective completion gate. Defaults to observe-only.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$PLUGIN_ROOT/adapters/codex-cli/stop_gate.py\"",
+            "timeout": 8,
+            "statusMessage": "Checking task completion"
+          }
+        ]
+      }
+    ]
+  }
+}

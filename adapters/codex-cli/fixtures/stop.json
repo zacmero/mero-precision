@@ -1,0 +1,8 @@
+{
+  "session_id": "fixture-codex-session",
+  "hook_event_name": "Stop",
+  "stop_hook_active": false,
+  "prompt": "Fix the authentication function in the repository and update the tests.",
+  "last_assistant_message": "Implemented the fix.",
+  "transcript_path": ""
+}

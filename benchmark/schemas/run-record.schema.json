@@ -1,0 +1,438 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mero-precision.dev/schemas/run-record.schema.json",
+  "title": "Mero Precision run record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "manifest_path",
+    "preregistration_commit",
+    "run_id",
+    "task_id",
+    "arm",
+    "replicate",
+    "order_index",
+    "host",
+    "host_version",
+    "provider",
+    "model",
+    "effort",
+    "temperature",
+    "permission_mode",
+    "tool_profile",
+    "environment_id",
+    "timeout_seconds",
+    "fixture_commit",
+    "implementation_commit",
+    "started_at",
+    "ended_at",
+    "duration_ms",
+    "status",
+    "tokens",
+    "model_invocations",
+    "turns",
+    "tool_calls",
+    "retries",
+    "quality",
+    "enforcement",
+    "artifacts",
+    "exclusion"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "manifest_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preregistration_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{7,40}$"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "arm": {
+      "enum": [
+        "baseline",
+        "kernel",
+        "skill",
+        "selective"
+      ]
+    },
+    "replicate": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "order_index": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "host": {
+      "type": "string",
+      "minLength": 1
+    },
+    "host_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "effort": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "temperature": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "permission_mode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tool_profile": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timeout_seconds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "fixture_commit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "implementation_commit": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{7,40}$"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "timeout",
+        "error",
+        "refusal",
+        "malformed"
+      ]
+    },
+    "tokens": {
+      "type": "object",
+      "required": [
+        "complete",
+        "source",
+        "input",
+        "cache_read",
+        "cache_write",
+        "output",
+        "reasoning",
+        "total"
+      ],
+      "properties": {
+        "complete": {
+          "type": "boolean"
+        },
+        "source": {
+          "type": "string"
+        },
+        "input": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "cache_read": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "cache_write": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "output": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "reasoning": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "total": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "model_invocations": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "turns": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "tool_calls": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "retries": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "quality": {
+      "type": "object",
+      "required": [
+        "task_success",
+        "deterministic_score"
+      ],
+      "properties": {
+        "task_success": {
+          "type": "boolean"
+        },
+        "deterministic_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "semantic_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "notes": {
+          "type": "string"
+        },
+        "blind_review": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "enforcement": {
+      "type": "object",
+      "required": [
+        "mode",
+        "score",
+        "would_enforce",
+        "triggered",
+        "count",
+        "reasons",
+        "review_label",
+        "extra_turn_success"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "off",
+            "observe",
+            "selective"
+          ]
+        },
+        "score": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "would_enforce": {
+          "type": "boolean"
+        },
+        "triggered": {
+          "type": "boolean"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "review_label": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "true_positive",
+            "false_positive",
+            "true_negative",
+            "false_negative",
+            null
+          ]
+        },
+        "extra_turn_success": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "artifacts": {
+      "type": "object",
+      "required": [
+        "prompt",
+        "response",
+        "transcript",
+        "usage",
+        "diff",
+        "checks",
+        "gate_events",
+        "environment"
+      ],
+      "properties": {
+        "prompt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "response": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "transcript": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "usage": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "diff": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "checks": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gate_events": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "environment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "exclusion": {
+      "type": "object",
+      "required": [
+        "excluded",
+        "code",
+        "reason"
+      ],
+      "properties": {
+        "excluded": {
+          "type": "boolean"
+        },
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "pilot-001",
+  "stage": "pilot",
+  "implementation_commit": "89abcdef0123456789abcdef0123456789abcdef",
+  "random_seed": 20260824,
+  "arms": [
+    "baseline",
+    "kernel",
+    "skill",
+    "selective"
+  ],
+  "primary_outcomes": [
+    "task_success",
+    "deterministic_score",
+    "total_tokens"
+  ],
+  "analysis_command": "python3 benchmark/scripts/analyze.py benchmark/examples/run-records.jsonl --manifest benchmark/examples/task-manifest.json --output /tmp/mero-precision-example-report.md",
+  "exclusion_rules": [
+    {
+      "code": "HOST_CRASH_BEFORE_MODEL",
+      "description": "The host crashed before the first model invocation."
+    },
+    {
+      "code": "AUTHENTICATION_FAILURE",
+      "description": "Authentication failed before the first model invocation."
+    },
+    {
+      "code": "FIXTURE_SETUP_FAILURE",
+      "description": "The clean fixture could not be created before the run."
+    }
+  ],
+  "settings": {
+    "host": "example-host",
+    "host_version": "1.0.0",
+    "provider": "example-provider",
+    "model": "example-model-2026-08-24",
+    "effort": "high",
+    "temperature": null,
+    "permission_mode": "workspace-write",
+    "tool_profile": "standard-tools-v1",
+    "environment_id": "example-linux-x86_64-v1",
+    "timeout_seconds": 900
+  },
+  "arm_orders": {
+    "fix-null-guard:r1": [
+      "kernel",
+      "baseline",
+      "selective",
+      "skill"
+    ]
+  },
+  "tasks": [
+    {
+      "task_id": "fix-null-guard",
+      "title": "Add a null guard and verify it",
+      "task_class": "medium",
+      "risk_level": "low",
+      "prompt_path": "tasks/fix-null-guard.md",
+      "fixture_commit": "fedcba9876543210fedcba9876543210fedcba98",
+      "replicates": 1,
+      "deliverables": [
+        "source change",
+        "regression test"
+      ],
+      "acceptance_checks": [
+        "python -m unittest"
+      ]
+    }
+  ]
+}

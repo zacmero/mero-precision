@@ -1,0 +1,20 @@
+{
+  "name": "mero-protocol",
+  "interface": {
+    "displayName": "Mero Protocol"
+  },
+  "plugins": [
+    {
+      "name": "mero-precision",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

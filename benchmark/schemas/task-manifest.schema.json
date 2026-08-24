@@ -1,0 +1,251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mero-precision.dev/schemas/task-manifest.schema.json",
+  "title": "Mero Precision task manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "stage",
+    "implementation_commit",
+    "random_seed",
+    "arms",
+    "primary_outcomes",
+    "analysis_command",
+    "exclusion_rules",
+    "settings",
+    "arm_orders",
+    "tasks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "stage": {
+      "enum": [
+        "pilot",
+        "claim-candidate"
+      ]
+    },
+    "implementation_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{7,40}$"
+    },
+    "random_seed": {
+      "type": "integer"
+    },
+    "arms": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "enum": [
+          "baseline",
+          "kernel",
+          "skill",
+          "selective"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "primary_outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "task_success",
+          "deterministic_score",
+          "semantic_score",
+          "total_tokens",
+          "output_tokens",
+          "duration_ms"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "analysis_command": {
+      "type": "string",
+      "minLength": 1
+    },
+    "exclusion_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "description"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]+$"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "settings": {
+      "type": "object",
+      "required": [
+        "host",
+        "host_version",
+        "provider",
+        "model",
+        "effort",
+        "temperature",
+        "permission_mode",
+        "tool_profile",
+        "environment_id",
+        "timeout_seconds"
+      ],
+      "properties": {
+        "host": {
+          "type": "string",
+          "minLength": 1
+        },
+        "host_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effort": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "temperature": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "permission_mode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tool_profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environment_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "arm_orders": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "enum": [
+            "baseline",
+            "kernel",
+            "skill",
+            "selective"
+          ]
+        },
+        "uniqueItems": true
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "task_id",
+          "title",
+          "task_class",
+          "risk_level",
+          "prompt_path",
+          "fixture_commit",
+          "replicates",
+          "deliverables",
+          "acceptance_checks"
+        ],
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "task_class": {
+            "enum": [
+              "small",
+              "medium",
+              "large",
+              "risky"
+            ]
+          },
+          "risk_level": {
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "prompt_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fixture_commit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "timeout_seconds": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "replicates": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "deliverables": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "acceptance_checks": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

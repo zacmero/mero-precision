@@ -1,0 +1,25 @@
+{
+  "name": "mero-precision",
+  "version": "0.1.0",
+  "description": "Precision-first communication and selective completion enforcement for coding agents",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "agent-skill",
+    "coding-agent",
+    "precision",
+    "completion-gate"
+  ],
+  "pi": {
+    "extensions": [
+      "./extensions/pi/index.ts"
+    ],
+    "skills": [
+      "./skills"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  }
+}

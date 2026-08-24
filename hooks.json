@@ -1,0 +1,12 @@
+{
+  "mero-precision-gate": {
+    "enabled": true,
+    "Stop": [
+      {
+        "type": "command",
+        "command": "python3 \"${MERO_PRECISION_PLUGIN_ROOT:-$HOME/.gemini/antigravity-cli/plugins/mero-precision}/adapters/antigravity-cli/stop_gate.py\"",
+        "timeout": 8
+      }
+    ]
+  }
+}

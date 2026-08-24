@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.coverage
+.pytest_cache/
+.mypy_cache/
+node_modules/
+dist/
+build/
+*.egg-info/
+.DS_Store
+benchmark/results/*.jsonl
+benchmark/results/*.csv
+benchmark/results/*.md
+!benchmark/results/.gitkeep

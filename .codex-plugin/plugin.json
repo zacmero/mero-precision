@@ -1,0 +1,30 @@
+{
+  "name": "mero-precision",
+  "version": "0.1.0",
+  "description": "Precision-first communication and selective task-completion enforcement.",
+  "author": {
+    "name": "Zac Mero",
+    "url": "https://github.com/zacmero"
+  },
+  "repository": "https://github.com/zacmero/mero-precision",
+  "license": "MIT",
+  "keywords": [
+    "coding-agents",
+    "agent-skills",
+    "precision",
+    "completion-gate"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/codex-hooks.json",
+  "interface": {
+    "displayName": "Mero Precision",
+    "shortDescription": "Maximum signal. Minimum semantic loss.",
+    "longDescription": "Precision-first technical communication with an optional selective completion gate.",
+    "developerName": "Zac Mero",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ]
+  }
+}

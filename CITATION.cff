@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use Mero Precision in research, cite this repository."
+title: "Mero Precision"
+type: software
+authors:
+  - family-names: "Mero"
+    given-names: "Zac"
+version: 0.1.0
+date-released: 2026-08-24
+license: MIT
+repository-code: "https://github.com/zacmero/mero-precision"
+keywords:
+  - coding agents
+  - agent skills
+  - technical communication
+  - completion gates
+  - benchmark policy

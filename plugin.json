@@ -1,0 +1,5 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "mero-precision",
+  "description": "Precision-first communication and selective task-completion enforcement for coding agents."
+}

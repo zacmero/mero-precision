@@ -1,0 +1,10 @@
+{
+  "complete": true,
+  "source": "synthetic-example",
+  "input": 1000,
+  "cache_read": 0,
+  "cache_write": 0,
+  "output": 600,
+  "reasoning": 400,
+  "total": 2000
+}
