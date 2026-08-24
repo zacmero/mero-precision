@@ -1,3 +1,4 @@
+# Triggered through the repository contents API so GitHub Actions can perform the one-time import.
 name: import repository
 
 on:
