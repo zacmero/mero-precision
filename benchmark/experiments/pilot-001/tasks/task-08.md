@@ -1,11 +1,11 @@
-# REPLACE_ME task 08
+# Fix edge cases in semver version comparison
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement fix edge cases in semver version comparison following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- comparator logic
+- semver suite
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_semver.py`

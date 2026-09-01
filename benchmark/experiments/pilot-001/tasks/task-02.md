@@ -1,11 +1,11 @@
-# REPLACE_ME task 02
+# Fix off-by-one error in pagination helper
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement fix off-by-one error in pagination helper following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- slice fix
+- regression test
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_pagination.py`

@@ -1,11 +1,11 @@
-# REPLACE_ME task 11
+# Add graceful shutdown signal handling
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement add graceful shutdown signal handling following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- signal handler
+- lifecycle test
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_shutdown.py`

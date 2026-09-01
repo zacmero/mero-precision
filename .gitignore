@@ -15,3 +15,6 @@ benchmark/results/*.jsonl
 benchmark/results/*.csv
 benchmark/results/*.md
 !benchmark/results/.gitkeep
+benchmark/experiments/*/raw/
+**/raw/
+

@@ -114,6 +114,73 @@ class GateTests(unittest.TestCase):
         self.assertNotIn("SECRET_PROJECT_NAME", log)
         self.assertNotIn(session_id, log)
 
+    def test_project_disabled_via_marker_file(self) -> None:
+        with tempfile.TemporaryDirectory() as project_dir:
+            marker = Path(project_dir) / ".mero-precision-hook-ignore"
+            marker.touch()
+
+            config = self.config("selective", threshold=3)
+            event = {
+                "conversation_id": "opt-out",
+                "workspacePaths": [project_dir],
+                "prompt": "Fix the database migration code and update the tests.",
+                "last_assistant_message": "Implemented the migration fix.",
+            }
+            decision = evaluate_event("generic", event, config)
+            self.assertFalse(decision.enforce)
+            self.assertEqual(decision.mode, "off")
+
+    def test_project_disabled_via_json_config(self) -> None:
+        with tempfile.TemporaryDirectory() as project_dir:
+            cfg = Path(project_dir) / ".mero-precision.json"
+            cfg.write_text('{"disabled": true}', encoding="utf-8")
+
+            config = self.config("selective", threshold=3)
+            event = {
+                "conversation_id": "opt-out-json",
+                "workspacePaths": [project_dir],
+                "prompt": "Fix the database migration code and update the tests.",
+                "last_assistant_message": "Implemented the migration fix.",
+            }
+            decision = evaluate_event("generic", event, config)
+            self.assertFalse(decision.enforce)
+            self.assertEqual(decision.mode, "off")
+
+    def test_bun_and_mise_test_commands_recognized(self) -> None:
+        test_cases = [
+            "bun test\n3 passed\nexit code 0",
+            "bun run test\n5 passed\nexit code 0",
+            "mise run test\n10 passed\nexit status 0",
+            "mise exec -- bun test\n4 passed\nexit code 0",
+            "rtk bun test\n6 passed\nexit code 0",
+            "rtk test\nall tests passed\nexit code 0",
+        ]
+        for transcript in test_cases:
+            decision = evaluate_event(
+                "generic",
+                {
+                    "conversation_id": "test-runner",
+                    "prompt": "Fix the authentication helper and update tests.",
+                    "last_assistant_message": "Implemented fix and verified.",
+                    "transcript_text": transcript,
+                },
+                self.config("selective"),
+            )
+            self.assertEqual(decision.components["verification_debt"], 0, f"Failed for: {transcript}")
+            self.assertFalse(decision.enforce)
+
+    def test_project_name_recorded_in_decision(self) -> None:
+        event = {
+            "conversation_id": "proj-meta",
+            "workspacePaths": ["/home/user/projects/my-awesome-app"],
+            "prompt": "Explain what this function returns.",
+            "last_assistant_message": "It returns a string.",
+        }
+        decision = evaluate_event("generic", event, self.config("observe"))
+        self.assertEqual(decision.project_name, "my-awesome-app")
+        self.assertEqual(decision.to_dict()["project_name"], "my-awesome-app")
+
 
 if __name__ == "__main__":
     unittest.main()
+

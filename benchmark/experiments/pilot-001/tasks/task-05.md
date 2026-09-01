@@ -1,11 +1,11 @@
-# REPLACE_ME task 05
+# Resolve data race in worker pool task dispatch
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement resolve data race in worker pool task dispatch following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- pool synchronization
+- concurrency test
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_worker_pool.py`

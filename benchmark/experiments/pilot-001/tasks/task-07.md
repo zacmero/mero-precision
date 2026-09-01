@@ -1,11 +1,11 @@
-# REPLACE_ME task 07
+# Add sliding window rate limiting middleware
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement add sliding window rate limiting middleware following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- rate limiter class
+- load test
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_rate_limiter.py`

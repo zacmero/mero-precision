@@ -167,6 +167,84 @@ Complexity or risk alone never forces a continuation. The gate also requires an 
 
 The gate does not use another model in v0.1.
 
+## Operational guide
+
+### Per-project hook opt-out
+
+To disable the Stop hook on specific projects while keeping it active globally:
+
+1. **Marker file (recommended)**:
+   Add `.mero-precision-hook-ignore` to the root of your project:
+   ```bash
+   touch .mero-precision-hook-ignore
+   ```
+   The gate detects this file in the workspace or working directory and returns `allow` immediately. The Agent Skill (`SKILL.md`) remains fully functional and accessible in prompts.
+
+2. **Project configuration file**:
+   Create `.mero-precision.json` in the project root:
+   ```json
+   {
+     "hook_disabled": true
+   }
+   ```
+
+3. **Directory-level environment variable (`direnv`)**:
+   ```bash
+   echo "export MERO_PRECISION_MODE=off" >> .envrc && direnv allow
+   ```
+
+### Supported test runners and toolchains
+
+The gate's deterministic completion scorer recognizes standard verification commands and wrappers:
+
+- **JavaScript / TypeScript / Runtimes**: `bun test`, `bun run test`, `bun t`, `npm test`, `pnpm test`, `yarn test`, `deno test`, `vitest`, `jest`, `playwright test`, `cypress run`, `tsc --noEmit`.
+- **Environment managers**: `mise run test`, `mise exec -- bun test`, `mise run check`.
+- **Token filters & CLI wrappers**: `rtk bun test`, `rtk test`, `rtk pytest`, `rtk npm test`.
+- **Python / Systems / JVM / .NET**: `pytest`, `python -m unittest`, `cargo test`, `cargo check`, `go test`, `mvn test`, `gradle test`, `dotnet test`, `make test`, `ruff check`, `eslint`.
+
+### Global event logs & per-project tracking
+
+Every gate decision is logged to `~/.local/state/mero-precision/events.jsonl`.
+
+#### Privacy guarantees
+- **No transcript text or code is logged**: Prompts and session IDs are hashed using SHA-256.
+- **Project attribution**: Records only the project directory basename (`project_name: "my-app"`), never absolute paths or proprietary code.
+
+#### Inspecting health and efficiency by project
+
+Query your global event log to measure gate value and filter by specific projects:
+
+```bash
+python3 -c '
+import json
+from collections import Counter
+from pathlib import Path
+
+log_path = Path.home() / ".local/state/mero-precision/events.jsonl"
+if not log_path.exists():
+    print("No events logged yet.")
+    raise SystemExit(0)
+
+events = [json.loads(l) for l in log_path.read_text().splitlines() if l.strip()]
+
+# Group by project
+by_project = {}
+for e in events:
+    p = e.get("project_name", "unknown")
+    by_project.setdefault(p, []).append(e)
+
+print(f"Total evaluated turns: {len(events)}\n")
+for proj, records in by_project.items():
+    enforced = [r for r in records if r.get("enforce")]
+    defects = Counter([d for r in records for d in r.get("actionable_reasons", [])])
+    print(f"📁 Project: {proj}")
+    print(f"   Evaluated: {len(records)} | Interventions: {len(enforced)} ({(len(enforced)/len(records))*100:.1f}%)")
+    if defects:
+        print(f"   Top defects caught: {dict(defects)}")
+    print()
+'
+```
+
 ## Benchmark doctrine
 
 Mero Precision does **not** claim a token-saving percentage.

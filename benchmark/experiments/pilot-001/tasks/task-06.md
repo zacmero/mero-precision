@@ -1,11 +1,11 @@
-# REPLACE_ME task 06
+# Implement LRU buffer pool with max size eviction
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement implement lru buffer pool with max size eviction following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- lru cache class
+- cache tests
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_buffer_pool.py`

@@ -1,11 +1,11 @@
-# REPLACE_ME task 01
+# Add exponential backoff retry to HTTP client
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement add exponential backoff retry to http client following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- retry helper
+- unit tests
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_retry.py`

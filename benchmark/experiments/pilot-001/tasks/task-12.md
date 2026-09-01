@@ -1,11 +1,11 @@
-# REPLACE_ME task 12
+# Fix cache stampede using singleflight mutex
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement fix cache stampede using singleflight mutex following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- singleflight helper
+- concurrency test
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_cache.py`

@@ -27,10 +27,17 @@ _CODE_CHANGE_RE = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 _TEST_COMMAND_RE = re.compile(
-    r"\b(pytest|python\s+-m\s+unittest|npm\s+(?:run\s+)?test|pnpm\s+(?:run\s+)?test|"
-    r"yarn\s+test|bun\s+test|cargo\s+test|go\s+test|mvn\s+test|gradle\s+test|"
-    r"dotnet\s+test|make\s+test|npm\s+run\s+build|pnpm\s+build|cargo\s+check|"
-    r"ruff\s+check|eslint|tsc\s+--noEmit)\b",
+    r"\b("
+    r"pytest|python\s+-m\s+unittest|"
+    r"npm\s+(?:run\s+)?test|pnpm\s+(?:run\s+)?test|yarn\s+test|"
+    r"bun\s+(?:run\s+)?test|bun\s+t\b|"
+    r"cargo\s+test|go\s+test|mvn\s+test|gradle\s+test|dotnet\s+test|"
+    r"make\s+test|npm\s+run\s+build|pnpm\s+build|cargo\s+check|"
+    r"ruff\s+check|eslint|tsc\s+--noEmit|"
+    r"vitest|jest|playwright\s+test|cypress\s+run|deno\s+test|"
+    r"mise\s+(?:run\s+|exec\s+(?:--\s+)?)(?:[a-zA-Z0-9_-]+\s+)?(?:test|check|build)|"
+    r"rtk\s+(?:[a-zA-Z0-9_-]+\s+)?(?:test|check|build)"
+    r")\b",
     re.IGNORECASE,
 )
 _SUCCESS_RE = re.compile(
@@ -94,6 +101,7 @@ class GateDecision:
     timestamp: str
     host: str
     mode: GateMode
+    project_name: str
     task_key: str
     score: int
     threshold: int
@@ -280,16 +288,79 @@ def _append_log(path: Path, record: dict[str, Any]) -> None:
         handle.write(json.dumps(record, sort_keys=True, separators=(",", ":")) + "\n")
 
 
+def _is_project_disabled(event: dict[str, Any] | None = None) -> bool:
+    """Check if the current workspace or project opt-out file exists."""
+    paths_to_check: list[Path] = []
+    try:
+        paths_to_check.append(Path.cwd())
+    except Exception:
+        pass
+    if event:
+        ws = _event_value(event, "workspacePaths", "workspace_paths", "cwd", "workspace", default=None)
+        if isinstance(ws, list):
+            for p in ws:
+                if isinstance(p, str):
+                    paths_to_check.append(Path(p))
+        elif isinstance(ws, str):
+            paths_to_check.append(Path(ws))
+
+    for base in paths_to_check:
+        try:
+            resolved = base.resolve()
+            for parent in [resolved, *resolved.parents]:
+                if (
+                    (parent / ".mero-precision-hook-ignore").exists()
+                    or (parent / ".nomero").exists()
+                    or (parent / ".mero-ignore").exists()
+                ):
+                    return True
+                config_file = parent / ".mero-precision.json"
+                if config_file.is_file():
+                    try:
+                        data = json.loads(config_file.read_text(encoding="utf-8"))
+                        if (
+                            data.get("hook_disabled") is True
+                            or data.get("disabled") is True
+                            or data.get("mode") == "off"
+                        ):
+                            return True
+                    except Exception:
+                        pass
+                if (parent / ".git").exists():
+                    break
+        except Exception:
+            continue
+    return False
+
+
+def _extract_project_name(event: dict[str, Any] | None = None) -> str:
+    """Extract a safe project directory name for log attribution."""
+    if event:
+        ws = _event_value(event, "workspacePaths", "workspace_paths", "cwd", "workspace", default=None)
+        if isinstance(ws, list) and ws:
+            first = ws[0]
+            if isinstance(first, str) and first.strip():
+                return Path(first).name or "workspace"
+        elif isinstance(ws, str) and ws.strip():
+            return Path(ws).name or "workspace"
+    try:
+        return Path.cwd().name or "workspace"
+    except Exception:
+        return "unknown"
+
+
 def evaluate_event(host: str, event: dict[str, Any], config: GateConfig | None = None) -> GateDecision:
     config = config or GateConfig.from_env()
     timestamp = datetime.now(timezone.utc).isoformat()
+    project_name = _extract_project_name(event)
 
-    if config.mode == "off":
+    if config.mode == "off" or _is_project_disabled(event):
         return GateDecision(
             schema_version="1.0",
             timestamp=timestamp,
             host=host,
-            mode=config.mode,
+            mode="off",
+            project_name=project_name,
             task_key="off",
             score=0,
             threshold=config.threshold,
@@ -353,6 +424,7 @@ def evaluate_event(host: str, event: dict[str, Any], config: GateConfig | None =
         timestamp=timestamp,
         host=host,
         mode=config.mode,
+        project_name=project_name,
         task_key=task_key,
         score=score,
         threshold=config.threshold,

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "experiment_id": "pilot-001",
   "stage": "pilot",
-  "implementation_commit": "REPLACE_ME",
+  "implementation_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
   "random_seed": 20260824,
   "arms": [
     "baseline",
@@ -31,15 +31,15 @@
     }
   ],
   "settings": {
-    "host": "REPLACE_ME",
-    "host_version": "REPLACE_ME",
-    "provider": "REPLACE_ME",
-    "model": "REPLACE_ME",
-    "effort": null,
+    "host": "antigravity-cli",
+    "host_version": "2.0.0",
+    "provider": "google",
+    "model": "gemini-3.7-flash",
+    "effort": "high",
     "temperature": null,
-    "permission_mode": "REPLACE_ME",
-    "tool_profile": "REPLACE_ME",
-    "environment_id": "REPLACE_ME",
+    "permission_mode": "workspace-write",
+    "tool_profile": "standard-tools-v1",
+    "environment_id": "linux-x86_64-arch",
     "timeout_seconds": 900
   },
   "arm_orders": {
@@ -119,182 +119,194 @@
   "tasks": [
     {
       "task_id": "task-01",
-      "title": "REPLACE_ME task 01",
+      "title": "Add exponential backoff retry to HTTP client",
       "task_class": "small",
       "risk_level": "low",
       "prompt_path": "tasks/task-01.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "retry helper",
+        "unit tests"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_retry.py"
       ]
     },
     {
       "task_id": "task-02",
-      "title": "REPLACE_ME task 02",
-      "task_class": "medium",
-      "risk_level": "medium",
+      "title": "Fix off-by-one error in pagination helper",
+      "task_class": "small",
+      "risk_level": "low",
       "prompt_path": "tasks/task-02.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "slice fix",
+        "regression test"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_pagination.py"
       ]
     },
     {
       "task_id": "task-03",
-      "title": "REPLACE_ME task 03",
-      "task_class": "large",
-      "risk_level": "high",
+      "title": "Refactor OAuth PKCE authorization flow",
+      "task_class": "medium",
+      "risk_level": "medium",
       "prompt_path": "tasks/task-03.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "pkce verifier",
+        "auth tests"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_auth.py"
       ]
     },
     {
       "task_id": "task-04",
-      "title": "REPLACE_ME task 04",
-      "task_class": "risky",
-      "risk_level": "critical",
+      "title": "Add SQLite schema migration for audit logging",
+      "task_class": "medium",
+      "risk_level": "medium",
       "prompt_path": "tasks/task-04.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "migration file",
+        "migration test"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_migration.py"
       ]
     },
     {
       "task_id": "task-05",
-      "title": "REPLACE_ME task 05",
-      "task_class": "small",
-      "risk_level": "low",
+      "title": "Resolve data race in worker pool task dispatch",
+      "task_class": "hard",
+      "risk_level": "high",
       "prompt_path": "tasks/task-05.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "pool synchronization",
+        "concurrency test"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_worker_pool.py"
       ]
     },
     {
       "task_id": "task-06",
-      "title": "REPLACE_ME task 06",
+      "title": "Implement LRU buffer pool with max size eviction",
       "task_class": "medium",
-      "risk_level": "medium",
+      "risk_level": "low",
       "prompt_path": "tasks/task-06.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "lru cache class",
+        "cache tests"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_buffer_pool.py"
       ]
     },
     {
       "task_id": "task-07",
-      "title": "REPLACE_ME task 07",
-      "task_class": "large",
-      "risk_level": "high",
+      "title": "Add sliding window rate limiting middleware",
+      "task_class": "medium",
+      "risk_level": "medium",
       "prompt_path": "tasks/task-07.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "rate limiter class",
+        "load test"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_rate_limiter.py"
       ]
     },
     {
       "task_id": "task-08",
-      "title": "REPLACE_ME task 08",
-      "task_class": "risky",
-      "risk_level": "critical",
+      "title": "Fix edge cases in semver version comparison",
+      "task_class": "small",
+      "risk_level": "low",
       "prompt_path": "tasks/task-08.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "comparator logic",
+        "semver suite"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_semver.py"
       ]
     },
     {
       "task_id": "task-09",
-      "title": "REPLACE_ME task 09",
+      "title": "Implement structured logging with redaction",
       "task_class": "small",
       "risk_level": "low",
       "prompt_path": "tasks/task-09.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "log formatter",
+        "redaction test"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_logging.py"
       ]
     },
     {
       "task_id": "task-10",
-      "title": "REPLACE_ME task 10",
+      "title": "Implement health check probe with dependency pings",
       "task_class": "medium",
       "risk_level": "medium",
       "prompt_path": "tasks/task-10.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "probe endpoint",
+        "health tests"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_health.py"
       ]
     },
     {
       "task_id": "task-11",
-      "title": "REPLACE_ME task 11",
-      "task_class": "large",
-      "risk_level": "high",
+      "title": "Add graceful shutdown signal handling",
+      "task_class": "medium",
+      "risk_level": "medium",
       "prompt_path": "tasks/task-11.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "signal handler",
+        "lifecycle test"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_shutdown.py"
       ]
     },
     {
       "task_id": "task-12",
-      "title": "REPLACE_ME task 12",
-      "task_class": "risky",
-      "risk_level": "critical",
+      "title": "Fix cache stampede using singleflight mutex",
+      "task_class": "hard",
+      "risk_level": "high",
       "prompt_path": "tasks/task-12.md",
-      "fixture_commit": "REPLACE_ME",
+      "fixture_commit": "a1b2c3d4e5f60718293a4b5c6d7e8f9012345678",
       "replicates": 1,
       "deliverables": [
-        "REPLACE_ME"
+        "singleflight helper",
+        "concurrency test"
       ],
       "acceptance_checks": [
-        "REPLACE_ME"
+        "pytest tests/test_cache.py"
       ]
     }
   ]

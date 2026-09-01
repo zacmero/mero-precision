@@ -1,11 +1,11 @@
-# REPLACE_ME task 03
+# Refactor OAuth PKCE authorization flow
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement refactor oauth pkce authorization flow following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- pkce verifier
+- auth tests
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_auth.py`

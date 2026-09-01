@@ -1,11 +1,11 @@
-# REPLACE_ME task 10
+# Implement health check probe with dependency pings
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement implement health check probe with dependency pings following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- probe endpoint
+- health tests
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_health.py`

@@ -1,11 +1,11 @@
-# REPLACE_ME task 04
+# Add SQLite schema migration for audit logging
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement add sqlite schema migration for audit logging following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- migration file
+- migration test
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_migration.py`

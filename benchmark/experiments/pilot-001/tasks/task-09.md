@@ -1,11 +1,11 @@
-# REPLACE_ME task 09
+# Implement structured logging with redaction
 
-Replace this file with the exact task prompt before preregistration.
+## Description
+Implement implement structured logging with redaction following project standards.
 
 ## Required deliverables
-
-- REPLACE_ME
+- log formatter
+- redaction test
 
 ## Acceptance checks
-
-- REPLACE_ME
+- `pytest tests/test_logging.py`
