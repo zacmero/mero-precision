@@ -1,0 +1,301 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "pilot-001",
+  "stage": "pilot",
+  "implementation_commit": "REPLACE_ME",
+  "random_seed": 20260824,
+  "arms": [
+    "baseline",
+    "kernel",
+    "skill",
+    "selective"
+  ],
+  "primary_outcomes": [
+    "task_success",
+    "deterministic_score",
+    "total_tokens"
+  ],
+  "analysis_command": "python3 benchmark/scripts/analyze.py benchmark/experiments/pilot-001/run-records.jsonl --manifest benchmark/experiments/pilot-001/manifest.json --output benchmark/experiments/pilot-001/report.md",
+  "exclusion_rules": [
+    {
+      "code": "HOST_CRASH_BEFORE_MODEL",
+      "description": "The host crashed before the first model invocation."
+    },
+    {
+      "code": "AUTHENTICATION_FAILURE",
+      "description": "Authentication failed before the first model invocation."
+    },
+    {
+      "code": "FIXTURE_SETUP_FAILURE",
+      "description": "The clean fixture could not be created before the run."
+    }
+  ],
+  "settings": {
+    "host": "REPLACE_ME",
+    "host_version": "REPLACE_ME",
+    "provider": "REPLACE_ME",
+    "model": "REPLACE_ME",
+    "effort": null,
+    "temperature": null,
+    "permission_mode": "REPLACE_ME",
+    "tool_profile": "REPLACE_ME",
+    "environment_id": "REPLACE_ME",
+    "timeout_seconds": 900
+  },
+  "arm_orders": {
+    "task-01:r1": [
+      "skill",
+      "baseline",
+      "kernel",
+      "selective"
+    ],
+    "task-02:r1": [
+      "skill",
+      "kernel",
+      "baseline",
+      "selective"
+    ],
+    "task-03:r1": [
+      "kernel",
+      "skill",
+      "baseline",
+      "selective"
+    ],
+    "task-04:r1": [
+      "skill",
+      "baseline",
+      "kernel",
+      "selective"
+    ],
+    "task-05:r1": [
+      "selective",
+      "kernel",
+      "skill",
+      "baseline"
+    ],
+    "task-06:r1": [
+      "baseline",
+      "skill",
+      "kernel",
+      "selective"
+    ],
+    "task-07:r1": [
+      "baseline",
+      "selective",
+      "skill",
+      "kernel"
+    ],
+    "task-08:r1": [
+      "kernel",
+      "skill",
+      "baseline",
+      "selective"
+    ],
+    "task-09:r1": [
+      "kernel",
+      "baseline",
+      "skill",
+      "selective"
+    ],
+    "task-10:r1": [
+      "kernel",
+      "skill",
+      "baseline",
+      "selective"
+    ],
+    "task-11:r1": [
+      "baseline",
+      "kernel",
+      "selective",
+      "skill"
+    ],
+    "task-12:r1": [
+      "baseline",
+      "kernel",
+      "skill",
+      "selective"
+    ]
+  },
+  "tasks": [
+    {
+      "task_id": "task-01",
+      "title": "REPLACE_ME task 01",
+      "task_class": "small",
+      "risk_level": "low",
+      "prompt_path": "tasks/task-01.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    },
+    {
+      "task_id": "task-02",
+      "title": "REPLACE_ME task 02",
+      "task_class": "medium",
+      "risk_level": "medium",
+      "prompt_path": "tasks/task-02.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    },
+    {
+      "task_id": "task-03",
+      "title": "REPLACE_ME task 03",
+      "task_class": "large",
+      "risk_level": "high",
+      "prompt_path": "tasks/task-03.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    },
+    {
+      "task_id": "task-04",
+      "title": "REPLACE_ME task 04",
+      "task_class": "risky",
+      "risk_level": "critical",
+      "prompt_path": "tasks/task-04.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    },
+    {
+      "task_id": "task-05",
+      "title": "REPLACE_ME task 05",
+      "task_class": "small",
+      "risk_level": "low",
+      "prompt_path": "tasks/task-05.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    },
+    {
+      "task_id": "task-06",
+      "title": "REPLACE_ME task 06",
+      "task_class": "medium",
+      "risk_level": "medium",
+      "prompt_path": "tasks/task-06.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    },
+    {
+      "task_id": "task-07",
+      "title": "REPLACE_ME task 07",
+      "task_class": "large",
+      "risk_level": "high",
+      "prompt_path": "tasks/task-07.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    },
+    {
+      "task_id": "task-08",
+      "title": "REPLACE_ME task 08",
+      "task_class": "risky",
+      "risk_level": "critical",
+      "prompt_path": "tasks/task-08.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    },
+    {
+      "task_id": "task-09",
+      "title": "REPLACE_ME task 09",
+      "task_class": "small",
+      "risk_level": "low",
+      "prompt_path": "tasks/task-09.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    },
+    {
+      "task_id": "task-10",
+      "title": "REPLACE_ME task 10",
+      "task_class": "medium",
+      "risk_level": "medium",
+      "prompt_path": "tasks/task-10.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    },
+    {
+      "task_id": "task-11",
+      "title": "REPLACE_ME task 11",
+      "task_class": "large",
+      "risk_level": "high",
+      "prompt_path": "tasks/task-11.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    },
+    {
+      "task_id": "task-12",
+      "title": "REPLACE_ME task 12",
+      "task_class": "risky",
+      "risk_level": "critical",
+      "prompt_path": "tasks/task-12.md",
+      "fixture_commit": "REPLACE_ME",
+      "replicates": 1,
+      "deliverables": [
+        "REPLACE_ME"
+      ],
+      "acceptance_checks": [
+        "REPLACE_ME"
+      ]
+    }
+  ]
+}
